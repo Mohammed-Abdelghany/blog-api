@@ -12,7 +12,6 @@ class CommentService
         // Find post or fail
         $post = Post::findOrFail($postId);
 
-        // Create and return comment
         return $post->comments()->create([
             'content' => $data['content'],
             'user_id' => Auth::id(),

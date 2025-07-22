@@ -26,7 +26,7 @@ class CommentController extends Controller
                 'status' => true,
                 'message' => 'Comment added successfully.',
                 'data' => $comment
-            ], 201);
+            ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
