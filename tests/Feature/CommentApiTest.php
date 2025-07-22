@@ -21,7 +21,7 @@ class CommentApiTest extends TestCase
             ->postJson("/api/posts/{$post->id}/comments", [
                 'content' => 'Nice post!',
             ]);
-        $response->assertStatus(200)->assertJsonFragment(['content' => 'Nice post!']);
+        $response->assertStatus(201)->assertJsonFragment(['content' => 'Nice post!']);
     }
 
     public function test_guest_cannot_comment()
