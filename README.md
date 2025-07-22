@@ -185,4 +185,81 @@ public function update(User $user, Post $post)
     return $user->role === 'admin' || ($user->role === 'author' && $user->id === $post->author_id);
 }
 ```
+✅ Testing
+
+This project includes a suite of Feature Tests using PHPUnit to ensure core API functionality, including role-based access control and service layer operations, behaves correctly.
+
+📂 Test Directory Structure
+
+tests/Feature/
+├── AuthTest.php
+├── PostApiTest.php
+├── CommentApiTest.php
+
+🧪 Main Tests Overview
+
+🔐 AuthTest.php
+
+✅ User registration
+
+✅ Login & receive JWT token
+
+✅ Logout
+
+📝 PostApiTest.php
+
+✅ admin or author can create posts
+
+❌ Unauthorized users (e.g., user role or guest) are forbidden from creating posts (403)
+
+✅ Only admins or the author of a post can update or delete it
+
+Example:
+
+$response = $this->actingAs($authorUser)->postJson('/api/posts', [...]);
+$response->assertStatus(200); // or 201
+
+$response = $this->actingAs($unauthorizedUser)->postJson('/api/posts', [...]);
+$response->assertStatus(403);
+
+💬 CommentApiTest.php
+
+✅ Authenticated users can add comments
+
+❌ Guests (unauthenticated users) cannot comment (401)
+
+Example:
+
+$response = $this->postJson('/api/posts/1/comments', [...]);
+$response->assertStatus(401);
+
+⚙️ Running the Tests
+
+Run all tests using:
+
+php artisan test
+
+
+📈 Test Coverage Summary
+
+Covered scenarios include:
+
+Role-based post creation/update/delete access (admin, author only)
+
+JWT-protected endpoints
+
+Authenticated-only commenting
+
+Proper handling of unauthorized access (401/403 responses)
+
+🧰 Future Suggestions
+
+Add unit tests for individual services (e.g., PostService, CommentService)
+
+Use factories + seeders to simulate larger datasets
+
+Include test coverage reports with packages like phpunit/php-code-coverage
+
+Happy Testing! ✅
 ```
+
